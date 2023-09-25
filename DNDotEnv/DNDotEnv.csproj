@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageTags>dotenv, .env</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>.env loader</Title>
@@ -12,6 +12,26 @@
     <Authors>AboJaber</Authors>
     <Company>abojaber.com</Company>
     <Description>This package will load variable from specific file (.env).</Description>
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/abojaber/DNDotEnv/tree/main</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/abojaber/DNDotEnv</PackageProjectUrl>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>6.0-minimum</AnalysisLevel>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="license.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
