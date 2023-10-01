@@ -66,6 +66,16 @@ namespace DotEnv.Tests
             Assert.Equal("Server=localhost;Database=Source_DB;Trusted_Connection=True;TrustServerCertificate=True", Environment.GetEnvironmentVariable("CONECTION_STRING"));
         }
 
+        [Fact]
+        public void NOT_ENV_VALID_VARIABLE()
+        {
+            string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + ".env";
+            DotEnv.Load(fullPath);
+            Assert.Null(Environment.GetEnvironmentVariable("NOT_ENV_VALID_VARIABLE"));
+            
+           // Assert.Equal("NOT_ENV_VALID_VARIABLE", Environment.GetEnvironmentVariable("NOT_ENV_VALID_VARIABLE"));
+
+        }
         public string? GetSolutionPath()
         {
 #nullable disable
