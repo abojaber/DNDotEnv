@@ -11,7 +11,7 @@ namespace DNDotEnv
             if (!File.Exists(filePath))
             {
                 throw new Exception(string.Format(
-                    ".env file is not found in path:" + filePath));
+                     filePath + " Cannot be read"));
             }
 
             foreach (var line in File.ReadAllLines(filePath))
@@ -27,8 +27,7 @@ namespace DNDotEnv
 
                     var result = string.Join("=", resultList);
                     Environment.SetEnvironmentVariable(
-                        parts[0],
-                        result);
+                        parts[0], result);
                     continue;
                 }
 
