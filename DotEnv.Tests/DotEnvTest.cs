@@ -18,7 +18,7 @@ namespace DotEnv.Tests
         [Fact]
         public void READ_FILE_IF_EXIST()
         {
-            string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar+".env";
+            string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + ".env";
             _testOutputHelper.WriteLine(fullPath);
             Assert.True(File.Exists(fullPath));
         }
@@ -26,16 +26,16 @@ namespace DotEnv.Tests
         [Fact]
         public void IsThrow_NOT_FOUNT_ERROR()
         {
-            string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar+"x.env";
-            _testOutputHelper.WriteLine("XXXXXXXXXXXX"+fullPath);
+            string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + "x.env";
+            _testOutputHelper.WriteLine("XXXXXXXXXXXX" + fullPath);
 
             Assert.False(File.Exists(fullPath));
 
             Action act = () => DotEnv.Load(fullPath);
-            
+
             Exception exception = Assert.Throws<Exception>(act);
 
-            Assert.Equal( fullPath +" Cannot be read", exception.Message);
+            Assert.Equal(fullPath + " Cannot be read", exception.Message);
         }
 
 
@@ -57,12 +57,12 @@ namespace DotEnv.Tests
         }
 
         [Fact]
-        public  void READ_MULTI_EQUAL()
+        public void READ_MULTI_EQUAL()
         {
             string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + ".env";
             DotEnv.Load(fullPath);
             Assert.NotNull(Environment.GetEnvironmentVariable("CONECTION_STRING"));
-            
+
             Assert.Equal("Server=localhost;Database=Source_DB;Trusted_Connection=True;TrustServerCertificate=True", Environment.GetEnvironmentVariable("CONECTION_STRING"));
         }
 
@@ -72,9 +72,6 @@ namespace DotEnv.Tests
             string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + ".env";
             DotEnv.Load(fullPath);
             Assert.Null(Environment.GetEnvironmentVariable("NOT_ENV_VALID_VARIABLE"));
-            
-           // Assert.Equal("NOT_ENV_VALID_VARIABLE", Environment.GetEnvironmentVariable("NOT_ENV_VALID_VARIABLE"));
-
         }
         public string? GetSolutionPath()
         {
