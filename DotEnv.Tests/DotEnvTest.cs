@@ -73,6 +73,22 @@ namespace DotEnv.Tests
             DotEnv.Load(fullPath);
             Assert.Null(Environment.GetEnvironmentVariable("NOT_ENV_VALID_VARIABLE"));
         }
+
+        [Fact]
+        public void READ_MULTI_LINE()
+        {
+            string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + ".env";
+            DotEnv.Load(fullPath);
+            var multi_line = """"
+            """
+            This is multi line
+            Sample Variable
+            """
+            """";
+            Assert.Equal("\"\"\"\r\nThis is multi line\r\nSample Variable\r\n\"\"\"", multi_line);
+            //Assert.Null(Environment.GetEnvironmentVariable("MULTI_LINE_VARIABLE"));
+        }
+
         public string? GetSolutionPath()
         {
 #nullable disable
