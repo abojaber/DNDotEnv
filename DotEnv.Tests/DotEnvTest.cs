@@ -80,13 +80,13 @@ namespace DotEnv.Tests
             string? fullPath = this.GetSolutionPath() + Path.DirectorySeparatorChar + ".env";
             DotEnv.Load(fullPath);
             var multi_line = """"
-            """
             This is multi line
             Sample Variable
-            """
             """";
-            Assert.Equal("\"\"\"\r\nThis is multi line\r\nSample Variable\r\n\"\"\"", multi_line);
-            //Assert.Null(Environment.GetEnvironmentVariable("MULTI_LINE_VARIABLE"));
+            Assert.Equal(multi_line,
+                        Environment.GetEnvironmentVariable("MULTI_LINE_VARIABLE"));
+            Assert.Equal(multi_line,
+                        Environment.GetEnvironmentVariable("MULTI_LINE_VARIABLE2"));
         }
 
         public string? GetSolutionPath()
