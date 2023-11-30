@@ -14,36 +14,26 @@ namespace DNDotEnv
                 throw new Exception(string.Format(
                      filePath + " Cannot be read"));
             }
-            // Line by Line
-            foreach (var line in File.ReadAllLines(filePath))
-            {
-                var parts = line.Split(
-                    '=',
-                    StringSplitOptions.RemoveEmptyEntries);
+            // Single Line Variables
+            string env_file = File.ReadAllText(filePath);
 
-                if (parts.Length > 2)
+            var pattern_single_line = @"([a-zA-Z_]\w*)\s*=(?!""{2,})(.*?)(\n|$)";
+
+
+            MatchCollection matches = Regex.Matches(env_file, pattern_single_line);
+
+             foreach (Match match in matches)
                 {
-                    var resultList = parts.ToList();
-                    resultList.Remove(parts[0]);
-
-                    var result = string.Join("=", resultList);
-                    Environment.SetEnvironmentVariable(
-                        parts[0], result);
-                    continue;
+                    var key = match.Groups[1].Value.Trim();
+                    var value = match.Groups[2].Value.Trim();
+                    Environment.SetEnvironmentVariable(key, value);
                 }
 
-                // TODO: check the cases
-                if (parts.Length != 2)
-                {
-                    continue;
-                }
-
-                Environment.SetEnvironmentVariable(parts[0], parts[1]);
-            }
+            ////////////////////////
             //Multi-lines variables
             var pattern_multi_line = @"([a-zA-Z_]\w*)\s*=""""""(\n|.)*?("""""")";
-            string env_file = File.ReadAllText(filePath);
-            MatchCollection matches = Regex.Matches(env_file, pattern_multi_line);
+
+            matches = Regex.Matches(env_file, pattern_multi_line);
 
             foreach (Match match in matches)
             {
@@ -53,9 +43,8 @@ namespace DNDotEnv
                 value_ = Regex.Replace(value_, $"\"\"\"{System.Environment.NewLine}", "");
                 value_ = Regex.Replace(value_, $"{System.Environment.NewLine}\"\"\"", "");
 
-                Environment.SetEnvironmentVariable(key,value_);
+                Environment.SetEnvironmentVariable(key, value_);
             }
-
         }
 
     }
